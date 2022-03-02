@@ -3,11 +3,13 @@ import logo from '../assets/images/logo.svg'
 import main from '../assets/images/main.svg'
 import styled from 'styled-components'
 import Wrapper from '../assets/wrappers/LandingPage.js'
+import {Logo} from '../components'
+import {Link} from 'react-router-dom'
 export const Landing = () => {
 return (
     <Wrapper>
         <nav>
-            <img src={logo} alt='jobify' className='logo'></img>
+            <Logo/>
         </nav>
         <div className='container Page'>
             <div className='info'>
@@ -17,7 +19,9 @@ return (
                 <p>
                 I'm baby butcher kogi ramps chartreuse. Enamel pin kombucha VHS quinoa chillwave gastropub next level paleo hashtag poke food truck. Gluten-free shoreditch tumeric, single-origin coffee readymade small batch jean shorts wolf
                 </p>
-                <button className='btn btn-hero'>Login/Register</button>
+                 <Link to='/register' className='btn btn-hero'>
+    Login / Register
+  </Link> 
             </div>
             <img src={main} alt='job hunt' className='img main-img' ></img>
         </div>

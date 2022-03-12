@@ -2,6 +2,7 @@ import express from 'express'
 
 import dotenv from 'dotenv'
 import 'express-async-errors'
+// import cors from 'cors'
 
 
 dotenv.config()
@@ -16,11 +17,17 @@ import notFoundMiddleware from './middleware/notfound.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
 
 app.use(express.json())
+// app.use(cors())
 
+
+app.get('/api/v1',(req,res)=>{
+    // throw new Error('')
+    res.json({msg:'API'})
+})
 
 app.get('/',(req,res)=>{
     // throw new Error('')
-    res.send('welcome')
+    res.json({msg:'welcome'})
 })
 
 app.use('/api/v1/auth',authRouter)

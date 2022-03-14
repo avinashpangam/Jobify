@@ -4,6 +4,11 @@ import { DISPLAY_ALERT,CLEAR_ALERT,REGISTER_USER_BEGIN,REGISTER_USER_SUCCESS,REG
 import reducer from './reducer'
 import axios from 'axios'
 
+const token = localStorage.getItem('token')
+const user = localStorage.getItem('user')
+const userLocation = localStorage.getItem('location')
+
+
 export const initialState = {
   isLoading: false,
   showAlert: true,
@@ -12,7 +17,11 @@ export const initialState = {
   user:null,
   token:null,
   userLocation:'',
-  jobLocation:''
+  jobLocation:'',
+  user: user ? JSON.parse(user) : null,
+  token: token,
+  userLocation: userLocation || '',
+  jobLocation: userLocation || '',
 }
 const AppContext = React.createContext()
 const AppProvider = ({ children }) => {
@@ -22,6 +31,18 @@ const AppProvider = ({ children }) => {
       dispatch({type:DISPLAY_ALERT})
       clearAlert()
   }
+
+const addUserToLocalStorage=({user,token,location})=>{
+  localStorage.setItem('user', JSON.stringify(user))
+  localStorage.setItem('token', token)
+  localStorage.setItem('location', location)
+}
+const removeUserFromLocalStorage = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
+  localStorage.removeItem('location')
+}
+
   const clearAlert = () => {
     setTimeout(() => {
       dispatch({
@@ -46,6 +67,8 @@ const AppProvider = ({ children }) => {
       },
     })
 
+    addUserToLocalStorage({user,token,location})
+
     // will add later
     // addUserToLocalStorage({
     //   user,
@@ -62,6 +85,7 @@ const AppProvider = ({ children }) => {
   clearAlert()
 }
   
+
 
 
 

@@ -1,5 +1,5 @@
 import express from 'express'
-
+import morgan from 'morgan'
 import dotenv from 'dotenv'
 import 'express-async-errors'
 // import cors from 'cors'
@@ -12,10 +12,13 @@ import connectDB from './db/connect.js'
 import authRouter from './routes/authRoutes.js'
 
 import jobRouter from './routes/jobsRoutes.js'
-
+ 
 import notFoundMiddleware from './middleware/notfound.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
 
+if(process.env.NODE_ENV!=='production'){
+    app.use(morgan('dev'));
+}
 app.use(express.json())
 // app.use(cors())
 

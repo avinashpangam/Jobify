@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useContext } from 'react'
 
-import { DISPLAY_ALERT,CLEAR_ALERT,REGISTER_USER_BEGIN,REGISTER_USER_SUCCESS,REGISTER_USER_ERROR,LOGIN_USER_BEGIN,LOGIN_USER_SUCCESS,LOGIN_USER_ERROR } from './actions'
+import { DISPLAY_ALERT,CLEAR_ALERT,REGISTER_USER_BEGIN,REGISTER_USER_SUCCESS,REGISTER_USER_ERROR,LOGIN_USER_BEGIN,LOGIN_USER_SUCCESS,LOGIN_USER_ERROR,SETUP_USER_BEGIN,SETUP_USER_SUCCESS,SETUP_USER_ERROR } from './actions'
 import reducer from './reducer'
 import axios from 'axios'
 
@@ -88,18 +88,19 @@ const removeUserFromLocalStorage = () => {
 }
   
 
-const loginUser = async (currentUser) => {
-  dispatch({ type: LOGIN_USER_BEGIN })
+const setupUser = async ({currentUser,endPoint,alertText}) => {
+  dispatch({ type: SETUP_USER_BEGIN })
   try {
-    const {data} = await axios.post('/api/v1/auth/login', currentUser)
+    const {data} = await axios.post(`/api/v1/auth/${endPoint}`, currentUser)
     
     const { user, token, location } = data
     dispatch({
-      type: LOGIN_USER_SUCCESS,
+      type: SETUP_USER_SUCCESS,
       payload: {
         user,
         token,
         location,
+        alertText
       },
     })
 
@@ -114,7 +115,7 @@ const loginUser = async (currentUser) => {
   } catch (error) {
     
     dispatch({
-      type: LOGIN_USER_ERROR,
+      type: SETUP_USER_ERROR,
       payload: { msg: error.response.data.msg },
     })
   }
@@ -125,7 +126,7 @@ const loginUser = async (currentUser) => {
   return (
     <AppContext.Provider
       value={{
-        ...state,displayAlert,registerUser,loginUser
+        ...state,displayAlert,registerUser,setupUser
       }}
     >
       {children}

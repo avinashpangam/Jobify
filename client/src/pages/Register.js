@@ -14,7 +14,7 @@ const initialState = {
 function Register() {
   const [values, setValues] = useState(initialState);
 
-  const {user,displayAlert,showAlert,isLoading,registerUser,loginUser}=useAppContext()
+  const {user,displayAlert,showAlert,isLoading,registerUser,setupUser}=useAppContext()
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value })
   };
@@ -30,11 +30,16 @@ function Register() {
     const currentUser={name,email,password}
     if(isMember){
       // console.log("Already a member")
-      loginUser(currentUser)
+      setupUser({currentUser,
+        endPoint:'login'
+       })
     }
     else
     {
-      registerUser(currentUser); 
+      setupUser({
+        currentUser,
+        endPoint:'register'
+      })
     }
     
   };

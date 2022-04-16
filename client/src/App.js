@@ -1,5 +1,4 @@
 
-import { Landing } from './pages/Landing.js';
 import styled from 'styled-components'
 // const Button=styled.button`
 // background:red;
@@ -7,7 +6,7 @@ import styled from 'styled-components'
 // font-size:1rem;
 import {BrowserRouter,Routes,Route,Link} from 'react-router-dom'
 import {AddJob,AllJobs,SharedLayout,Stats,Profile} from './pages/dashboard/index.js'
-import {Error,Register} from './pages'
+import {Error,Register,ProtectedRoute,Landing} from './pages'
 
 function App() {
   return (
@@ -15,8 +14,10 @@ function App() {
     <BrowserRouter>
     
       <Routes>
-        <Route path='/'>
-        <Route path="stats" element={<Stats/>}/>
+        <Route path='/' element={ <ProtectedRoute>
+          <SharedLayout/>
+        </ProtectedRoute> }>
+        <Route index  element={<Stats/>}/>
         <Route path="Add-Job" element={<AddJob/>}/>
         <Route path="AllJobs" element={<AllJobs/>}/>
         <Route path="Profile" element={<Profile/>}/>

@@ -19,7 +19,7 @@ function App() {
         </ProtectedRoute> }>
         <Route index  element={<Stats/>}/>
         <Route path="Add-Job" element={<AddJob/>}/>
-        <Route path="AllJobs" element={<AllJobs/>}/>
+        <Route path="All-Jobs" element={<AllJobs/>}/>
         <Route path="Profile" element={<Profile/>}/>
       
         

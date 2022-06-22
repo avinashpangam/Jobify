@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: [true, 'please provide password'],
         minlength: 6,
+        select:false
     },
     lastname: {
         type: String,
@@ -40,9 +41,9 @@ const UserSchema = new mongoose.Schema({
 });
 
 UserSchema.pre('save', async function(){
-    const salt= await bcrypt.genSalt(10)
-    this.password=await bcrypt.hash(this.password,salt)
-
+    if (!this.isModified('password')) return
+    const salt = await bcrypt.genSalt(10)
+    this.password = await bcrypt.hash(this.password, salt)
 })
 
 UserSchema.methods.comparePassword = async function (candidatePassword) {

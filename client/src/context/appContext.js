@@ -95,11 +95,13 @@ const logoutuser=()=>{
   dispatch({type:LOGOUT_USER})
   removeUserFromLocalStorage();
 }
-
+const updateUser= async (currentUser)=>{
+  console.log(currentUser)
+}
   return (
     <AppContext.Provider
       value={{
-        ...state,displayAlert,setupUser,toggleSidebar,logoutuser
+        ...state,displayAlert,setupUser,toggleSidebar,logoutuser,updateUser
       }}
     >
       {children}

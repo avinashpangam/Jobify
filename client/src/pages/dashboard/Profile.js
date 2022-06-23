@@ -7,7 +7,7 @@ const Profile = () => {
   const {user,showAlert,displayAlert,updateUser,isLoading}=useAppContext()
   const [name, setName] = useState(user?.name)
   const [email, setEmail] = useState(user?.email)
-  const [lastName, setLastName] = useState(user?.lastName)
+  const [lastName, setLastName] = useState(user?.lastname)
   const [location, setLocation] = useState(user?.location)
 
   const handleSubmit=(e)=>{
@@ -31,11 +31,10 @@ const Profile = () => {
           handleChange={(e)=>setName(e.target.value)}
           />
           <FormRow
-            labelText='last name'
             type='text'
             name='lastName'
             value={lastName}
-            handleChange={(e) => setLastName(e.target.value)}
+            handleChange={(e)=>setLastName(e.target.value)}
           />
           <FormRow
             type='email'

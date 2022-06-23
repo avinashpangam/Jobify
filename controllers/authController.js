@@ -60,7 +60,7 @@ const updateUser = async (req,res) =>{
     user.email=email
     user.location=location
     user.name=name
-    user.lastName=lastName
+    user.lastname=lastName
 
     await user.save()
     const token = user.createJWT()

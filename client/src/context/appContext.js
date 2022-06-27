@@ -44,7 +44,7 @@ const AppProvider = ({ children }) => {
     (error) => {
       console.log(error.response)
       if (error.response.status === 401) {
-        console.log('AUTH ERROR')
+        logoutuser()
       }
       return Promise.reject(error)
     }
@@ -134,9 +134,12 @@ const updateUser= async (currentUser)=>{
     addUserToLocalStorage({ user, location, token })
 
    } catch (error) {
-     dispatch({type:UPDATE_USER_ERROR,
-    payload:{msg:error.response.data.msg}
-    })
+    if(error.response.status!==401){
+
+      dispatch({type:UPDATE_USER_ERROR,
+     payload:{msg:error.response.data.msg}
+     })
+    }
    }
    clearAlert()
 }
